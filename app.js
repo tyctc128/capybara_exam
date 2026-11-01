@@ -311,7 +311,9 @@ function nextQuestion() {
   if (!state.running || state.paused) return;
   state.question = createQuestion();
   $("#question-text").textContent = `${state.question.left} × ${state.question.right} = ?`;
-  state.lastCorrectSpawn = performance.now() - LEVELS[state.level].correctGap;
+  // Start the guarantee window with the question itself. The first capybara is
+  // now genuinely random instead of always being forced to carry the answer.
+  state.lastCorrectSpawn = performance.now();
   scheduleNextSpawn(true);
 }
 
