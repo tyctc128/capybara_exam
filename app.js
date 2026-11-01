@@ -465,7 +465,7 @@ function updateHud() {
 function showFeedback(text, positive) {
   const feedback = $("#feedback");
   feedback.textContent = text;
-  feedback.style.setProperty("-webkit-text-stroke-color", positive ? "#163f35" : "#6f1e22");
+  feedback.classList.toggle("is-negative", !positive);
   feedback.classList.remove("show");
   void feedback.offsetWidth;
   feedback.classList.add("show");

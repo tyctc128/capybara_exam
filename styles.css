@@ -472,14 +472,28 @@ h1 {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(.7);
-  color: var(--white);
-  font-size: clamp(38px, 7vw, 86px);
+  min-width: max-content;
+  padding: .24em .58em .3em;
+  border: clamp(5px, .65vmin, 8px) solid var(--leaf);
+  border-radius: 999px;
+  background: rgba(255, 246, 220, .96);
+  box-shadow: 0 .14em 0 rgba(73, 42, 24, .35), 0 .22em .5em rgba(22, 63, 53, .25);
+  color: #245b45;
+  font-size: clamp(30px, 5vw, 62px);
   font-weight: 900;
-  line-height: .9;
+  line-height: 1.05;
+  letter-spacing: .025em;
   text-align: center;
+  white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  -webkit-text-stroke: 7px var(--leaf-dark);
+  -webkit-text-stroke: 0;
+  text-shadow: 0 2px 0 rgba(255, 255, 255, .8);
+}
+
+.feedback.is-negative {
+  border-color: #b44743;
+  color: #8b302e;
 }
 
 .feedback.show {
