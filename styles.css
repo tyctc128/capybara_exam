@@ -105,18 +105,55 @@ p {
 }
 
 h1 {
-  margin-bottom: 24px;
-  color: var(--wood-dark);
-  font-size: clamp(56px, 8.6vw, 108px);
-  line-height: .88;
-  letter-spacing: -.055em;
+  width: 100%;
+  margin-bottom: 28px;
+  color: #7b381f;
+  font-family: "Microsoft JhengHei UI", "PingFang TC", "Noto Sans TC", system-ui, sans-serif;
+  font-size: clamp(54px, 8vw, 98px);
+  font-weight: 900;
+  line-height: .92;
+  text-align: center;
+  text-shadow: 0 .055em 0 #efc978, 0 .1em 0 rgba(81, 38, 22, .18);
+}
+
+.title-line {
+  display: block;
+}
+
+.title-line--main {
+  font-size: .82em;
+  letter-spacing: .09em;
+  text-indent: .09em;
+}
+
+.title-line--sub {
+  margin-top: .08em;
+  font-size: 1em;
+  letter-spacing: .16em;
+  text-indent: .16em;
 }
 
 .title-copy {
   max-width: 31ch;
   margin-bottom: 30px;
-  font-size: clamp(18px, 2.2vw, 25px);
-  line-height: 1.55;
+  padding: 12px 20px 14px;
+  border-top: 2px solid rgba(111, 53, 29, .2);
+  border-bottom: 2px solid rgba(111, 53, 29, .2);
+  color: #5d3a27;
+  font-size: clamp(17px, 2vw, 23px);
+  font-weight: 700;
+  line-height: 1.65;
+  letter-spacing: .035em;
+}
+
+.title-copy span {
+  display: block;
+}
+
+.title-copy strong {
+  color: #287052;
+  font-size: 1.06em;
+  font-weight: 900;
 }
 
 .primary-button,

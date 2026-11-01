@@ -7,14 +7,20 @@
     <meta name="description" content="卡皮九九大冒險：在80秒內找到正確乘法答案，敲敲可愛的卡皮巴拉。" />
     <title>卡皮九九大冒險</title>
     <link rel="preload" href="assets/backgrounds/world-map-lite.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=20261101-stage3-perspective" />
+    <link rel="stylesheet" href="styles.css?v=20261101-title-typography" />
   </head>
   <body>
     <main id="app" class="app-shell">
       <section id="title-screen" class="screen title-screen is-active" aria-labelledby="game-title">
         <div class="title-card">
-          <h1 id="game-title">卡皮九九<br />大冒險</h1>
-          <p class="title-copy">看清楚算式，找到正確答案。<br />80秒內答對10題就過關！</p>
+          <h1 id="game-title">
+            <span class="title-line title-line--main">卡皮九九</span>
+            <span class="title-line title-line--sub">大冒險</span>
+          </h1>
+          <p class="title-copy">
+            <span>看清楚算式，找到正確答案。</span>
+            <span><strong>80 秒</strong>內答對 <strong>10 題</strong>就過關！</span>
+          </p>
           <button id="start-button" class="primary-button" type="button">開始冒險</button>
           <button id="reset-button" class="text-button" type="button">重設關卡紀錄</button>
         </div>
