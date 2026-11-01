@@ -6,7 +6,8 @@
     <meta name="theme-color" content="#163f35" />
     <meta name="description" content="卡皮九九大冒險：在80秒內找到正確乘法答案，敲敲可愛的卡皮巴拉。" />
     <title>卡皮九九大冒險</title>
-    <link rel="stylesheet" href="styles.css?v=20261101-stage3-layout" />
+    <link rel="preload" href="assets/backgrounds/world-map.webp" as="image" type="image/webp" />
+    <link rel="stylesheet" href="styles.css?v=20261101-mobile-load" />
   </head>
   <body>
     <main id="app" class="app-shell">
@@ -69,14 +70,14 @@
 
           <div id="hole-grid" class="hole-grid" aria-label="答案洞口"></div>
           <div id="feedback" class="feedback" aria-live="assertive"></div>
-          <img id="hammer" class="hammer" src="assets/sprites/mallet/clean.png" alt="" draggable="false" />
+          <img id="hammer" class="hammer" src="assets/sprites/mallet/clean.webp" alt="" draggable="false" decoding="async" />
         </div>
       </section>
     </main>
 
     <div id="dialog-overlay" class="overlay" hidden>
       <section class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
-        <img class="teacher" src="assets/sprites/teacher/clean.png" alt="卡皮巴拉老師" />
+        <img class="teacher" src="assets/sprites/teacher/clean.webp" alt="卡皮巴拉老師" decoding="async" />
         <div class="dialog-copy">
           <h2 id="dialog-title">卡皮老師的遊戲說明</h2>
           <div id="dialog-body"></div>
@@ -104,6 +105,6 @@
     </div>
 
     <noscript>這個遊戲需要啟用 JavaScript 才能遊玩。</noscript>
-    <script src="app.js?v=20261101-audio" defer></script>
+    <script src="app.js?v=20261101-mobile-load" defer></script>
   </body>
 </html>

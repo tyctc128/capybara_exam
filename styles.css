@@ -60,7 +60,7 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
-  background: var(--leaf-dark) url("assets/backgrounds/world-map.png") center / cover no-repeat;
+  background: var(--leaf-dark) url("assets/backgrounds/world-map.webp") center / cover no-repeat;
 }
 
 .title-screen::before {
@@ -210,7 +210,7 @@ h1 {
   min-height: 0;
   margin: 0 auto;
   overflow: hidden;
-  background: #8fdce2 url("assets/backgrounds/world-map.png") center / cover no-repeat;
+  background: #8fdce2 url("assets/backgrounds/world-map.webp") center / cover no-repeat;
   border: 12px solid #8a4c2a;
   border-radius: 34px;
 }
@@ -271,7 +271,7 @@ h1 {
 }
 
 .game-scene {
-  --game-bg: url("assets/backgrounds/meadow.png");
+  --game-bg: url("assets/backgrounds/meadow.webp");
   position: relative;
   width: 100%;
   height: 100%;

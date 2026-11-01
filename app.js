@@ -1,20 +1,20 @@
 "use strict";
 
 const LEVELS = {
-  1: { name: "草原練習場", size: 3, maxActive: 3, spawnMin: 360, spawnMax: 920, dwellMin: 1300, dwellMax: 2800, correctGap: 1500, background: "assets/backgrounds/meadow.png" },
-  2: { name: "蘋果果園", size: 4, maxActive: 5, spawnMin: 220, spawnMax: 680, dwellMin: 850, dwellMax: 2100, correctGap: 1150, background: "assets/backgrounds/orchard.png" },
-  3: { name: "溫泉祭典", size: 5, maxActive: 7, spawnMin: 110, spawnMax: 440, dwellMin: 560, dwellMax: 1550, correctGap: 820, background: "assets/backgrounds/hotspring.png" }
+  1: { name: "草原練習場", size: 3, maxActive: 3, spawnMin: 360, spawnMax: 920, dwellMin: 1300, dwellMax: 2800, correctGap: 1500, background: "assets/backgrounds/meadow.webp" },
+  2: { name: "蘋果果園", size: 4, maxActive: 5, spawnMin: 220, spawnMax: 680, dwellMin: 850, dwellMax: 2100, correctGap: 1150, background: "assets/backgrounds/orchard.webp" },
+  3: { name: "溫泉祭典", size: 5, maxActive: 7, spawnMin: 110, spawnMax: 440, dwellMin: 560, dwellMax: 1550, correctGap: 820, background: "assets/backgrounds/hotspring.webp" }
 };
 
 const STORAGE_KEY = "capybara-math-progress-v1";
-const ANSWER_SPRITE = "assets/sprites/capy-answer/clean.png";
-const HIT_SPRITE = "assets/sprites/capy-hit/clean.png";
+const ANSWER_SPRITE = "assets/sprites/capy-answer/clean.webp";
+const HIT_SPRITE = "assets/sprites/capy-hit/clean.webp";
 const BGM_TRACKS = {
-  title: "sound/bg.mp3",
-  map: "sound/bg.mp3",
-  1: "sound/1.mp3",
-  2: "sound/2.mp3",
-  3: "sound/3.mp3"
+  title: "sound/bg.mp3?v=mobile-load-1",
+  map: "sound/bg.mp3?v=mobile-load-1",
+  1: "sound/1.mp3?v=mobile-load-1",
+  2: "sound/2.mp3?v=mobile-load-1",
+  3: "sound/3.mp3?v=mobile-load-1"
 };
 const SFX_TRACKS = {
   swing: "sound/swing.mp3",
