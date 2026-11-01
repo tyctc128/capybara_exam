@@ -346,9 +346,12 @@ h1 {
   --cols: 3;
   position: relative;
   z-index: 10;
-  flex: 1;
+  flex: 0 1 auto;
   width: min(820px, 84vw);
+  height: min(65svh, 620px);
+  max-height: calc(100svh - 175px);
   min-height: 0;
+  margin: clamp(6px, 2.2svh, 22px) 0 auto;
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
   grid-template-rows: repeat(var(--cols), minmax(0, 1fr));
@@ -358,11 +361,9 @@ h1 {
 
 /* The 5 × 5 stage must stay inside the visible wooden play board. */
 .hole-grid[data-size="5"] {
-  flex: 0 1 auto;
   width: min(820px, 78vw);
   height: min(58svh, 570px);
   max-height: calc(100svh - 195px);
-  margin: 0 0 auto;
   gap: clamp(3px, .7vmin, 8px);
   padding-block: clamp(4px, .8vmin, 9px);
 }
@@ -631,7 +632,17 @@ h1 {
   .hud-piece { height: 42px; border-width: 4px; font-size: 17px; }
   .round-button, .hud-button { width: 42px; height: 42px; font-size: 19px; }
   .question-board { min-height: 46px; margin: 4px 0 0; padding: 5px 18px; border-width: 5px; font-size: 31px; }
-  .hole-grid { width: min(630px, 88vw); padding: 5px; gap: 3px; }
+  .hole-grid {
+    width: min(630px, 88vw);
+    height: min(64svh, calc(100svh - 105px));
+    max-height: calc(100svh - 105px);
+    margin-top: 3px;
+    padding: 5px;
+    gap: 3px;
+  }
+  .hole-grid[data-size="5"] {
+    margin-top: clamp(28px, 7svh, 36px);
+  }
   .dialog-card { grid-template-columns: 150px 1fr; padding: 12px; }
   .dialog-copy h2 { font-size: 28px; }
   .dialog-copy p, .dialog-copy li { font-size: 16px; line-height: 1.4; }
@@ -647,7 +658,11 @@ h1 {
   .hud-button { position: absolute; top: 58px; right: 0; }
   #exit-button { right: 52px; }
   .question-board { margin-top: 8px; min-width: 76vw; }
-  .hole-grid { width: 96vw; max-height: 66svh; }
+  .hole-grid {
+    width: 96vw;
+    height: min(62svh, 680px);
+    max-height: calc(100svh - 190px);
+  }
   .hole-grid[data-size="5"] {
     width: 94vw;
     height: min(54svh, 680px);
