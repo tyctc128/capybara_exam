@@ -1,0 +1,671 @@
+:root {
+  --ink: #2b241d;
+  --wood-dark: #6f351d;
+  --wood: #b96b32;
+  --paper: #fff6dc;
+  --leaf: #286a4e;
+  --leaf-dark: #163f35;
+  --apple: #d74b3f;
+  --sun: #f5bd3f;
+  --water: #57c6d3;
+  --white: #fffdf6;
+  --danger: #b52e32;
+  --radius: 24px;
+  font-family: "Arial Rounded MT Bold", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--leaf-dark);
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 5px solid var(--sun);
+  outline-offset: 4px;
+}
+
+.app-shell,
+.screen {
+  width: 100%;
+  height: 100svh;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.screen.is-active {
+  display: flex;
+}
+
+.title-screen {
+  align-items: center;
+  justify-content: center;
+  padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  background: var(--leaf-dark) url("assets/backgrounds/world-map.png") center / cover no-repeat;
+}
+
+.title-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 47, 40, 0.48);
+}
+
+.title-card {
+  position: relative;
+  width: min(560px, 92vw);
+  min-height: min(650px, 86svh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(28px, 5vw, 64px);
+  text-align: center;
+  background: var(--paper);
+  clip-path: polygon(2% 0, 98% 0, 100% 3%, 100% 97%, 98% 100%, 2% 100%, 0 97%, 0 3%);
+  animation: card-arrive 620ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.title-card::before,
+.title-card::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  height: 20px;
+  background: var(--wood);
+}
+
+.title-card::before { top: 0; }
+.title-card::after { bottom: 0; }
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 24px;
+  color: var(--wood-dark);
+  font-size: clamp(56px, 8.6vw, 108px);
+  line-height: .88;
+  letter-spacing: -.055em;
+}
+
+.title-copy {
+  max-width: 31ch;
+  margin-bottom: 30px;
+  font-size: clamp(18px, 2.2vw, 25px);
+  line-height: 1.55;
+}
+
+.primary-button,
+.level-button,
+.round-button,
+.hud-button {
+  border: 0;
+  color: var(--white);
+  background: var(--leaf);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 140ms ease, background-color 140ms ease;
+}
+
+.primary-button {
+  min-width: 210px;
+  min-height: 58px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.primary-button:hover,
+.level-button:hover,
+.round-button:hover,
+.hud-button:hover {
+  background: #1e7955;
+  transform: translateY(-3px);
+}
+
+.primary-button:active,
+.level-button:active,
+.round-button:active,
+.hud-button:active {
+  transform: translateY(2px) scale(.97);
+}
+
+.text-button {
+  min-height: 44px;
+  margin-top: 10px;
+  padding: 8px 14px;
+  border: 0;
+  color: var(--wood-dark);
+  background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.map-screen {
+  flex-direction: column;
+  padding: max(16px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  background: #d9f1e4;
+}
+
+.map-header {
+  width: min(1500px, 100%);
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.map-header h2 {
+  margin: 0;
+  color: var(--wood-dark);
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.map-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.round-button,
+.hud-button {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.map-stage {
+  position: relative;
+  flex: 1;
+  width: min(1500px, 100%);
+  min-height: 0;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #8fdce2 url("assets/backgrounds/world-map.png") center / cover no-repeat;
+  border: 12px solid #8a4c2a;
+  border-radius: 34px;
+}
+
+.level-anchor {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.level-anchor--one { left: 22%; top: 52%; }
+.level-anchor--two { left: 52%; top: 51%; }
+.level-anchor--three { left: 82%; top: 53%; }
+
+.level-button {
+  min-width: clamp(150px, 15vw, 230px);
+  min-height: 84px;
+  padding: 12px 20px;
+  border: 8px solid #8a4c2a;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--wood-dark);
+}
+
+.level-button:hover {
+  background: #fff0b7;
+}
+
+.level-button[disabled] {
+  cursor: not-allowed;
+  filter: grayscale(.7) brightness(.7);
+  transform: none;
+}
+
+.level-button[disabled]::after {
+  content: "未解鎖";
+  display: block;
+  margin-left: 8px;
+  font-size: 13px;
+}
+
+.level-name,
+.level-detail {
+  display: block;
+  font-weight: 900;
+}
+
+.level-name { font-size: clamp(16px, 1.7vw, 23px); }
+.level-detail { margin-top: 4px; color: var(--leaf); font-size: 18px; }
+
+.map-status {
+  margin: 10px auto 0;
+  font-size: 17px;
+  text-align: center;
+}
+
+.game-screen {
+  background: var(--leaf-dark);
+}
+
+.game-scene {
+  --game-bg: url("assets/backgrounds/meadow.png");
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: max(12px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+  background: #9bd06b var(--game-bg) center / cover no-repeat;
+}
+
+.hud {
+  position: relative;
+  z-index: 20;
+  width: min(1040px, 98%);
+  display: grid;
+  grid-template-columns: 1.35fr .58fr .86fr 54px 54px;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-piece {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 8px 14px;
+  border: 6px solid #8a4c2a;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--wood-dark);
+  font-size: clamp(19px, 2.5vw, 28px);
+}
+
+.hearts {
+  gap: clamp(2px, .6vw, 9px);
+}
+
+.heart {
+  position: relative;
+  width: clamp(18px, 2.4vw, 28px);
+  height: clamp(17px, 2.2vw, 26px);
+  display: inline-block;
+  background: #e94751;
+  clip-path: polygon(50% 96%, 7% 52%, 2% 31%, 8% 12%, 23% 3%, 39% 7%, 50% 21%, 61% 7%, 77% 3%, 92% 12%, 98% 31%, 93% 52%);
+}
+
+.heart.is-lost {
+  background: #bcae98;
+}
+
+.question-board {
+  position: relative;
+  z-index: 15;
+  min-width: min(540px, 83vw);
+  min-height: 70px;
+  margin: 10px 0 4px;
+  display: grid;
+  place-items: center;
+  padding: 10px 28px;
+  border: 8px solid #8a4c2a;
+  border-radius: 18px;
+  background: var(--paper);
+  color: var(--wood-dark);
+  font-size: clamp(34px, 5vw, 58px);
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+.hole-grid {
+  --cols: 3;
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  width: min(820px, 84vw);
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  grid-template-rows: repeat(var(--cols), minmax(0, 1fr));
+  gap: clamp(4px, 1vmin, 12px);
+  padding: clamp(8px, 1.3vmin, 16px);
+}
+
+/* The 5 × 5 stage must stay inside the visible wooden play board. */
+.hole-grid[data-size="5"] {
+  flex: 0 1 auto;
+  width: min(820px, 78vw);
+  height: min(58svh, 570px);
+  max-height: calc(100svh - 195px);
+  margin: 0 0 auto;
+  gap: clamp(3px, .7vmin, 8px);
+  padding-block: clamp(4px, .8vmin, 9px);
+}
+
+.hole {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hole::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 3%;
+  height: 38%;
+  border: clamp(5px, .7vmin, 10px) solid #7c4c2c;
+  border-radius: 50%;
+  background: #24140d;
+}
+
+.capy {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 3%;
+  width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transform: translate(-50%, 70%) scale(.78);
+  transform-origin: 50% 90%;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 220ms cubic-bezier(.2,.9,.25,1.2), opacity 120ms linear;
+}
+
+.hole.is-active .capy {
+  transform: translate(-50%, 4%) scale(1);
+  opacity: 1;
+}
+
+.hole.is-leaving .capy {
+  transform: translate(-50%, 70%) scale(.78);
+  opacity: 0;
+}
+
+.hole.is-active {
+  border-radius: 34%;
+}
+
+.hole.is-active:hover {
+  background: rgba(245, 189, 63, .16);
+}
+
+.hole.is-active:active .capy {
+  transform: translate(-50%, 7%) scale(.94);
+}
+
+.hole.is-hit .capy {
+  transform: translate(-50%, 2%) scale(.97);
+  opacity: 1;
+  animation: bonk 380ms ease both;
+}
+
+.answer-number {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 55%;
+  min-width: 38%;
+  transform: translate(-50%, -50%);
+  color: #4a2818;
+  font-size: clamp(17px, 3.3vmin, 34px);
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 100ms linear;
+}
+
+.hole.is-active .answer-number {
+  opacity: 1;
+}
+
+.feedback {
+  position: absolute;
+  z-index: 30;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(.7);
+  color: var(--white);
+  font-size: clamp(38px, 7vw, 86px);
+  font-weight: 900;
+  line-height: .9;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-text-stroke: 7px var(--leaf-dark);
+}
+
+.feedback.show {
+  animation: feedback-pop 650ms ease both;
+}
+
+.hammer {
+  position: fixed;
+  z-index: 50;
+  width: clamp(100px, 13vw, 190px);
+  /* The visible red mallet head is the real input point. */
+  transform: translate(-68%, -27%) rotate(18deg);
+  transform-origin: 68% 27%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 80ms linear;
+}
+
+.hammer.is-visible {
+  opacity: 1;
+}
+
+.hammer.is-swinging {
+  animation: hammer-swing 240ms ease both;
+}
+
+.overlay {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  background: rgba(18, 47, 40, .75);
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.dialog-card,
+.result-card,
+.pause-card {
+  width: min(880px, 94vw);
+  max-height: 90svh;
+  overflow: auto;
+  background: var(--paper);
+  border: 12px solid #8a4c2a;
+  border-radius: var(--radius);
+  animation: dialog-arrive 260ms ease both;
+}
+
+.dialog-card {
+  display: grid;
+  grid-template-columns: minmax(200px, .75fr) 1.25fr;
+  align-items: end;
+  padding: 22px 28px 28px 18px;
+}
+
+.teacher {
+  width: 100%;
+  max-height: 62svh;
+  object-fit: contain;
+}
+
+.dialog-copy {
+  align-self: center;
+}
+
+.dialog-copy h2,
+.result-card h2,
+.pause-card h2 {
+  margin-bottom: 18px;
+  color: var(--wood-dark);
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1;
+}
+
+.dialog-copy p,
+.dialog-copy li,
+.result-card p,
+.pause-card p {
+  font-size: clamp(17px, 2vw, 22px);
+  line-height: 1.6;
+}
+
+.dialog-copy ol {
+  padding-left: 1.4em;
+}
+
+.result-card,
+.pause-card {
+  max-width: 560px;
+  padding: 38px;
+  text-align: center;
+}
+
+.result-mark {
+  margin-bottom: 12px;
+  color: var(--sun);
+  font-size: 34px !important;
+  line-height: 1 !important;
+}
+
+@keyframes card-arrive {
+  from { opacity: 0; transform: translateY(28px) rotate(-1.5deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+@keyframes dialog-arrive {
+  from { opacity: 0; transform: translateY(22px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes bonk {
+  0%, 100% { transform: translate(-50%, 2%) scale(.97) rotate(0); }
+  35% { transform: translate(-50%, 6%) scale(.92) rotate(-3deg); }
+  65% { transform: translate(-50%, 2%) scale(.98) rotate(3deg); }
+}
+
+@keyframes feedback-pop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.5) rotate(-4deg); }
+  20%, 68% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0); }
+  100% { opacity: 0; transform: translate(-50%, -58%) scale(1.08); }
+}
+
+@keyframes hammer-swing {
+  0% { transform: translate(-68%, -27%) rotate(42deg) scale(1); }
+  46% { transform: translate(-68%, -27%) rotate(-8deg) scale(1.08); }
+  72% { transform: translate(-68%, -27%) rotate(2deg) scale(.98); }
+  100% { transform: translate(-68%, -27%) rotate(18deg) scale(1); }
+}
+
+@media (max-width: 900px) {
+  .map-header { margin-bottom: 8px; }
+  .map-kicker { display: none; }
+  .map-stage { border-width: 8px; }
+  .level-button { min-width: 135px; min-height: 70px; border-width: 6px; padding: 8px 12px; }
+  .hud { grid-template-columns: 1.2fr .62fr .78fr 48px 48px; gap: 5px; }
+  .hud-piece { height: 50px; border-width: 5px; padding: 5px 8px; }
+  .round-button, .hud-button { width: 48px; height: 48px; }
+  .question-board { min-height: 58px; margin-top: 5px; border-width: 6px; }
+  .hole-grid { width: min(720px, 89vw); }
+}
+
+@media (max-width: 700px), (max-height: 560px) {
+  .title-card { min-height: 90svh; }
+  .title-copy { margin-bottom: 18px; }
+  .map-screen { padding: 8px; }
+  .map-header h2 { font-size: 32px; }
+  .map-status { display: none; }
+  .level-anchor--one { left: 21%; }
+  .level-anchor--two { left: 51%; }
+  .level-anchor--three { left: 81%; }
+  .level-button { min-width: 108px; min-height: 62px; border-width: 5px; }
+  .level-name { font-size: 14px; }
+  .level-detail { font-size: 15px; }
+  .game-scene { padding: 5px; }
+  .hud { grid-template-columns: 1.12fr .58fr .72fr 42px 42px; }
+  .hud-piece { height: 42px; border-width: 4px; font-size: 17px; }
+  .round-button, .hud-button { width: 42px; height: 42px; font-size: 19px; }
+  .question-board { min-height: 46px; margin: 4px 0 0; padding: 5px 18px; border-width: 5px; font-size: 31px; }
+  .hole-grid { width: min(630px, 88vw); padding: 5px; gap: 3px; }
+  .dialog-card { grid-template-columns: 150px 1fr; padding: 12px; }
+  .dialog-copy h2 { font-size: 28px; }
+  .dialog-copy p, .dialog-copy li { font-size: 16px; line-height: 1.4; }
+}
+
+@media (orientation: portrait) and (max-width: 760px) {
+  .map-stage { background-position: center; }
+  .level-anchor--one { left: 28%; top: 33%; }
+  .level-anchor--two { left: 70%; top: 52%; }
+  .level-anchor--three { left: 34%; top: 76%; }
+  .level-button { min-width: 140px; }
+  .hud { grid-template-columns: 1fr 1fr 1fr; }
+  .hud-button { position: absolute; top: 58px; right: 0; }
+  #exit-button { right: 52px; }
+  .question-board { margin-top: 8px; min-width: 76vw; }
+  .hole-grid { width: 96vw; max-height: 66svh; }
+  .hole-grid[data-size="5"] {
+    width: 94vw;
+    height: min(54svh, 680px);
+    max-height: calc(100svh - 190px);
+  }
+  .dialog-card { grid-template-columns: 1fr; text-align: center; }
+  .teacher { height: 30svh; }
+}
+
+@media (pointer: coarse) {
+  .hammer { width: clamp(88px, 18vw, 140px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}

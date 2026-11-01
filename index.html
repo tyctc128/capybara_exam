@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#163f35" />
+    <meta name="description" content="卡皮九九大冒險：在80秒內找到正確乘法答案，敲敲可愛的卡皮巴拉。" />
+    <title>卡皮九九大冒險</title>
+    <link rel="stylesheet" href="styles.css?v=20261101-stage3-layout" />
+  </head>
+  <body>
+    <main id="app" class="app-shell">
+      <section id="title-screen" class="screen title-screen is-active" aria-labelledby="game-title">
+        <div class="title-card">
+          <h1 id="game-title">卡皮九九<br />大冒險</h1>
+          <p class="title-copy">看清楚算式，找到正確答案。<br />80秒內答對10題就過關！</p>
+          <button id="start-button" class="primary-button" type="button">開始冒險</button>
+          <button id="reset-button" class="text-button" type="button">重設關卡紀錄</button>
+        </div>
+      </section>
+
+      <section id="map-screen" class="screen map-screen" aria-labelledby="map-title">
+        <header class="map-header">
+          <div>
+            <h2 id="map-title">卡皮巴拉群島</h2>
+          </div>
+          <div class="map-actions">
+            <button id="tutorial-button" class="round-button" type="button" aria-label="查看遊戲教學">?</button>
+            <button id="sound-button" class="round-button" type="button" aria-label="切換音效">音</button>
+          </div>
+        </header>
+
+        <div class="map-stage" data-ui>
+          <div class="level-anchor level-anchor--one">
+            <button class="level-button" type="button" data-level="1">
+              <span class="level-name">草原練習場</span>
+              <span class="level-detail">3 × 3</span>
+            </button>
+          </div>
+          <div class="level-anchor level-anchor--two">
+            <button class="level-button" type="button" data-level="2">
+              <span class="level-name">蘋果果園</span>
+              <span class="level-detail">4 × 4</span>
+            </button>
+          </div>
+          <div class="level-anchor level-anchor--three">
+            <button class="level-button" type="button" data-level="3">
+              <span class="level-name">溫泉祭典</span>
+              <span class="level-detail">5 × 5</span>
+            </button>
+          </div>
+        </div>
+        <p id="map-status" class="map-status" aria-live="polite">從草原開始，完成挑戰就能前往下一座島。</p>
+      </section>
+
+      <section id="game-screen" class="screen game-screen" aria-labelledby="question-text">
+        <div id="game-scene" class="game-scene" data-ui>
+          <header class="hud">
+            <div id="hearts" class="hud-piece hearts" aria-label="剩餘生命"></div>
+            <div class="hud-piece timer" aria-label="剩餘時間"><span aria-hidden="true">時間</span><strong id="time-value">80</strong></div>
+            <div class="hud-piece progress" aria-label="答題進度"><span aria-hidden="true">答對</span><strong id="score-value">0 / 10</strong></div>
+            <button id="pause-button" class="hud-button" type="button" aria-label="暫停遊戲">Ⅱ</button>
+            <button id="exit-button" class="hud-button" type="button" aria-label="退出關卡">×</button>
+          </header>
+
+          <div class="question-board">
+            <span id="question-text">準備好了嗎？</span>
+          </div>
+
+          <div id="hole-grid" class="hole-grid" aria-label="答案洞口"></div>
+          <div id="feedback" class="feedback" aria-live="assertive"></div>
+          <img id="hammer" class="hammer" src="assets/sprites/mallet/clean.png" alt="" draggable="false" />
+        </div>
+      </section>
+    </main>
+
+    <div id="dialog-overlay" class="overlay" hidden>
+      <section class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+        <img class="teacher" src="assets/sprites/teacher/clean.png" alt="卡皮巴拉老師" />
+        <div class="dialog-copy">
+          <h2 id="dialog-title">卡皮老師的遊戲說明</h2>
+          <div id="dialog-body"></div>
+          <button id="dialog-button" class="primary-button" type="button">我準備好了</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="result-overlay" class="overlay" hidden>
+      <section class="result-card" role="dialog" aria-modal="true" aria-labelledby="result-title">
+        <p id="result-mark" class="result-mark" aria-hidden="true">完成</p>
+        <h2 id="result-title">挑戰完成</h2>
+        <p id="result-copy"></p>
+        <button id="result-button" class="primary-button" type="button">回到主地圖</button>
+      </section>
+    </div>
+
+    <div id="pause-overlay" class="overlay" hidden>
+      <section class="pause-card" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+        <h2 id="pause-title">先休息一下</h2>
+        <p>時間和卡皮巴拉都暫停了。</p>
+        <button id="resume-button" class="primary-button" type="button">繼續挑戰</button>
+        <button id="pause-exit-button" class="text-button" type="button">返回主地圖</button>
+      </section>
+    </div>
+
+    <noscript>這個遊戲需要啟用 JavaScript 才能遊玩。</noscript>
+    <script src="app.js?v=20261101-audio" defer></script>
+  </body>
+</html>

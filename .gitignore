@@ -1,0 +1,11 @@
+# Local QA recordings and screenshots
+wrong*.mp4
+q*.png
+q*.PNG
+tmp/
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.taste-skill/
