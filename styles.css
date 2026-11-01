@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "GensenTitle";
+  src: url("assets/fonts/gensen-rounded-tw-bold-title.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   --ink: #2b241d;
   --wood-dark: #6f351d;
@@ -89,6 +97,7 @@ button:focus-visible {
   padding: 12% 14% 16%;
   text-align: center;
   background: url("assets/ui/ranch-sign-portrait-v1.webp") center / contain no-repeat;
+  font-family: "GensenTitle", "Microsoft JhengHei", sans-serif;
 }
 
 h1,
@@ -100,14 +109,14 @@ p {
 h1 {
   width: 100%;
   margin-bottom: 22px;
-  color: #fff0bf;
-  font-family: "Arial Rounded MT Bold", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  color: #fff1bd;
+  font-family: "GensenTitle", "Microsoft JhengHei", sans-serif;
   font-size: clamp(46px, 7vw, 76px);
-  font-weight: 900;
+  font-weight: 700;
   line-height: .94;
   text-align: center;
-  -webkit-text-stroke: 2px #653018;
-  text-shadow: 0 4px 0 #653018, 0 6px 6px rgba(56, 23, 9, .42);
+  -webkit-text-stroke: .35px rgba(91, 43, 19, .72);
+  text-shadow: 0 3px 0 #783b1c, 0 5px 7px rgba(56, 23, 9, .34);
 }
 
 .title-line {
@@ -116,15 +125,15 @@ h1 {
 
 .title-line--main {
   font-size: .82em;
-  letter-spacing: .13em;
-  text-indent: .13em;
+  letter-spacing: .1em;
+  text-indent: .1em;
 }
 
 .title-line--sub {
   margin-top: .08em;
   font-size: 1em;
-  letter-spacing: .16em;
-  text-indent: .16em;
+  letter-spacing: .12em;
+  text-indent: .12em;
 }
 
 .title-copy {
