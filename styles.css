@@ -372,8 +372,9 @@ h1 {
 /* The 5 × 5 stage must stay inside the visible wooden play board. */
 .hole-grid[data-size="5"] {
   width: min(820px, 78vw);
-  height: min(58svh, 570px);
+  height: min(52svh, 500px);
   max-height: calc(100svh - 195px);
+  margin-top: clamp(58px, 8svh, 72px);
   gap: clamp(3px, .7vmin, 8px);
   padding-block: clamp(4px, .8vmin, 9px);
 }
@@ -389,6 +390,10 @@ h1 {
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+}
+
+.hole-grid[data-size="5"] .hole {
+  transform: translateX(var(--perspective-x, 0));
 }
 
 .hole::before {

@@ -245,10 +245,17 @@ function buildGrid(size) {
   grid.style.setProperty("--cols", size);
   grid.dataset.size = String(size);
   for (let index = 0; index < size * size; index += 1) {
+    const row = Math.floor(index / size);
+    const column = index % size;
     const hole = document.createElement("button");
     hole.type = "button";
     hole.className = "hole";
     hole.dataset.index = String(index);
+    if (size === 5) {
+      const centerColumn = (size - 1) / 2;
+      const perspectiveOffset = -(column - centerColumn) * (size - 1 - row) * 4.5;
+      hole.style.setProperty("--perspective-x", `${perspectiveOffset}%`);
+    }
     hole.setAttribute("aria-label", `第${index + 1}個洞口`);
     hole.innerHTML = `<img class="capy" src="${ANSWER_SPRITE}" alt="" draggable="false"><span class="answer-number"></span>`;
     hole.addEventListener("click", (event) => {
