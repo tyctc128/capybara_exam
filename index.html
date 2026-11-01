@@ -7,7 +7,7 @@
     <meta name="description" content="卡皮九九大冒險：在80秒內找到正確乘法答案，敲敲可愛的卡皮巴拉。" />
     <title>卡皮九九大冒險</title>
     <link rel="preload" href="assets/backgrounds/world-map-lite.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=20261101-ultralite" />
+    <link rel="stylesheet" href="styles.css?v=20261101-ready-before-play" />
   </head>
   <body>
     <main id="app" class="app-shell">
@@ -56,6 +56,7 @@
 
       <section id="game-screen" class="screen game-screen" aria-labelledby="question-text">
         <div id="game-scene" class="game-scene" data-ui>
+          <img id="game-background" class="game-background" alt="" decoding="async" fetchpriority="high" />
           <header class="hud">
             <div id="hearts" class="hud-piece hearts" aria-label="剩餘生命"></div>
             <div class="hud-piece timer" aria-label="剩餘時間"><span aria-hidden="true">時間</span><strong id="time-value">80</strong></div>
@@ -104,7 +105,15 @@
       </section>
     </div>
 
+    <div id="loading-overlay" class="overlay loading-overlay" hidden>
+      <section class="loading-card" role="status" aria-live="polite">
+        <span class="loading-spinner" aria-hidden="true"></span>
+        <h2>正在準備關卡</h2>
+        <p id="loading-copy">正在載入背景、角色與音樂……</p>
+      </section>
+    </div>
+
     <noscript>這個遊戲需要啟用 JavaScript 才能遊玩。</noscript>
-    <script src="app.js?v=20261101-ultralite" defer></script>
+    <script src="app.js?v=20261101-ready-before-play" defer></script>
   </body>
 </html>

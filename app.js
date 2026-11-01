@@ -62,7 +62,9 @@ const screens = {
   game: $("#game-screen")
 };
 const sfxTemplates = new Map();
+const imageAssetPromises = new Map();
 let clearCheer = null;
+let levelLoadToken = 0;
 
 function loadProgress() {
   try {
@@ -130,9 +132,76 @@ function goToMap(message = "") {
   if (message) $("#map-status").textContent = message;
 }
 
-function startLevel(level) {
+function preloadImage(path) {
+  if (imageAssetPromises.has(path)) return imageAssetPromises.get(path);
+  const promise = new Promise((resolve) => {
+    const image = new Image();
+    image.decoding = "async";
+    let finished = false;
+    const finish = (loaded) => {
+      if (finished) return;
+      finished = true;
+      resolve(loaded);
+    };
+    const timer = window.setTimeout(() => finish(false), 20000);
+    image.onload = async () => {
+      window.clearTimeout(timer);
+      try {
+        if (image.decode) await image.decode();
+      } catch {
+        // A successfully loaded image is still usable when explicit decode fails.
+      }
+      finish(true);
+    };
+    image.onerror = () => {
+      window.clearTimeout(timer);
+      finish(false);
+    };
+    image.src = path;
+  });
+  imageAssetPromises.set(path, promise);
+  return promise;
+}
+
+function warmGameAssets() {
+  [ANSWER_SPRITE, HIT_SPRITE, ...Object.values(LEVELS).map((level) => level.background)]
+    .forEach((path) => preloadImage(path));
+}
+
+function primeLevelBgm(level) {
+  if (!state.sound) return Promise.resolve();
+  const track = BGM_TRACKS[level];
+  if (!track) return Promise.resolve();
+  if (state.bgmTrack === track && state.bgm) {
+    return state.bgm.play().catch(() => {});
+  }
+  pauseBgm();
+  state.bgm = new Audio(track);
+  state.bgm.loop = true;
+  state.bgm.preload = "auto";
+  state.bgm.volume = .01;
+  state.bgmTrack = track;
+  const playbackReady = state.bgm.play().catch(() => {});
+  const timeout = new Promise((resolve) => window.setTimeout(resolve, 12000));
+  return Promise.race([playbackReady, timeout]);
+}
+
+async function startLevel(level) {
   if (level > state.unlocked) return;
   const config = LEVELS[level];
+  const loadToken = ++levelLoadToken;
+  const loadingOverlay = $("#loading-overlay");
+  $("#loading-copy").textContent = `正在準備${config.name}……`;
+  loadingOverlay.hidden = false;
+  const bgmReady = primeLevelBgm(level);
+  await Promise.all([
+    preloadImage(config.background),
+    preloadImage(ANSWER_SPRITE),
+    preloadImage(HIT_SPRITE),
+    bgmReady
+  ]);
+  if (loadToken !== levelLoadToken) return;
+
   state.level = level;
   state.lives = 5;
   state.score = 0;
@@ -145,8 +214,9 @@ function startLevel(level) {
   state.activeAnswers.clear();
   $("#feedback").classList.remove("show");
   $("#feedback").textContent = "";
+  $("#game-background").src = config.background;
   showScreen("game");
-  $("#game-scene").style.setProperty("--game-bg", `url("${config.background}")`);
+  loadingOverlay.hidden = true;
   buildGrid(config.size);
   updateHud();
   nextQuestion();
@@ -155,6 +225,8 @@ function startLevel(level) {
 }
 
 function stopGame() {
+  levelLoadToken += 1;
+  $("#loading-overlay").hidden = true;
   state.running = false;
   state.paused = false;
   window.clearTimeout(state.spawnTimer);
@@ -512,6 +584,7 @@ function syncBgm() {
     state.bgm.volume = state.screen === "game" ? .24 : .3;
     state.bgmTrack = track;
   }
+  state.bgm.volume = state.screen === "game" ? .24 : .3;
   state.bgm.play().catch(() => {});
 }
 
@@ -546,6 +619,7 @@ function playTone(frequency, duration, type) {
 function bindEvents() {
   $("#start-button").addEventListener("click", () => {
     primeSfx();
+    warmGameAssets();
     showScreen("map");
     updateMap();
     if (!state.tutorialSeen) openTutorial();
